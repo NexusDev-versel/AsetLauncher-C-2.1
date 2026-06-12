@@ -1,0 +1,573 @@
+﻿<Window x:Class="AsetLauncher.ServerConsoleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Сервер"
+        Height="740"
+        Width="1140"
+        MinHeight="660"
+        MinWidth="1020"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+    <Window.Resources>
+        <LinearGradientBrush x:Key="WindowBackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0C1624" Offset="0" />
+            <GradientStop Color="#0E1C2F" Offset="0.5" />
+            <GradientStop Color="#122741" Offset="1" />
+        </LinearGradientBrush>
+
+        <SolidColorBrush x:Key="PanelBrush" Color="#141F2E" />
+        <SolidColorBrush x:Key="CardBrush" Color="#0E1724" />
+        <SolidColorBrush x:Key="BorderBrush" Color="#35516D" />
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="#2A547E" />
+            <Setter Property="BorderBrush" Value="#6298D1" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Padding" Value="14,6" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Root"
+                                CornerRadius="10"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="2" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.93" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.82" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SuccessButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+            <Setter Property="Background" Value="#0D9963" />
+            <Setter Property="BorderBrush" Value="#55CF99" />
+        </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+            <Setter Property="Background" Value="#6B3D46" />
+            <Setter Property="BorderBrush" Value="#BE7B88" />
+        </Style>
+
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+            <Setter Property="Background" Value="#2C3C50" />
+            <Setter Property="BorderBrush" Value="#56708F" />
+        </Style>
+
+        <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Background" Value="#08111C" />
+            <Setter Property="Foreground" Value="#ECF5FF" />
+            <Setter Property="BorderBrush" Value="#4A6A8A" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="9,6" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+        <Style x:Key="InputComboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="#4A6A8A" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+        <Style x:Key="GridHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Background" Value="#1A2C43" />
+            <Setter Property="Foreground" Value="#E8F3FF" />
+            <Setter Property="BorderBrush" Value="#40607E" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+            <Setter Property="Padding" Value="8,6" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style x:Key="TabItemLeftStyle" TargetType="TabItem">
+            <Setter Property="Foreground" Value="#DFEBFA" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="Root"
+                                Background="#1A2A3F"
+                                BorderBrush="#355474"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="12,10">
+                            <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#2B5E8F" />
+                                <Setter TargetName="Root" Property="BorderBrush" Value="#79B0E3" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.95" />
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource WindowBackgroundBrush}">
+        <Border Margin="16"
+                Padding="18"
+                Background="{StaticResource PanelBrush}"
+                CornerRadius="18"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock x:Name="ServerTitleTextBlock"
+                                   Text="Сервер"
+                                   Foreground="White"
+                                   FontSize="26"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Margin="0,2,0,0"
+                                   Text="Управление запуском, файлами и параметрами сервера."
+                                   Foreground="#AFC7E3"
+                                   FontSize="13" />
+                    </StackPanel>
+
+                    <Border Grid.Column="1"
+                            VerticalAlignment="Center"
+                            Background="#12263D"
+                            BorderBrush="#3B648F"
+                            BorderThickness="1"
+                            CornerRadius="999"
+                            Padding="12,6">
+                        <TextBlock x:Name="ServerStateTextBlock"
+                                   Foreground="#E7F3FF"
+                                   FontSize="12"
+                                   Text="Сервер остановлен." />
+                    </Border>
+                </Grid>
+
+                <Border Grid.Row="1"
+                        Margin="0,14,0,0"
+                        Padding="12"
+                        Background="{StaticResource CardBrush}"
+                        BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button x:Name="ServerStartButton"
+                                Grid.Column="0"
+                                Width="110"
+                                Height="34"
+                                Content="Старт"
+                                Style="{StaticResource SuccessButtonStyle}"
+                                Click="ServerStartButton_Click" />
+
+                        <Button x:Name="ServerRestartButton"
+                                Grid.Column="2"
+                                Width="110"
+                                Height="34"
+                                Content="Рестарт"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Click="ServerRestartButton_Click" />
+
+                        <Button x:Name="ServerStopButton"
+                                Grid.Column="4"
+                                Width="110"
+                                Height="34"
+                                Content="Стоп"
+                                Style="{StaticResource DangerButtonStyle}"
+                                Click="ServerStopButton_Click" />
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2"
+                        Margin="0,14,0,0"
+                        Padding="12"
+                        Background="{StaticResource CardBrush}"
+                        BorderBrush="{StaticResource BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="12">
+                    <TabControl x:Name="ServerSectionsTabControl"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                TabStripPlacement="Left"
+                                ItemContainerStyle="{StaticResource TabItemLeftStyle}">
+                        <TabItem Header="Консоль">
+                            <Grid Margin="10,4,2,2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Border Background="#08111C"
+                                        BorderBrush="#446789"
+                                        BorderThickness="1"
+                                        CornerRadius="10"
+                                        Padding="1">
+                                    <TextBox x:Name="ServerConsoleTextBox"
+                                             AcceptsReturn="True"
+                                             VerticalScrollBarVisibility="Auto"
+                                             HorizontalScrollBarVisibility="Auto"
+                                             TextWrapping="NoWrap"
+                                             IsReadOnly="True"
+                                             FontFamily="Consolas"
+                                             FontSize="12"
+                                             Background="#08111C"
+                                             Foreground="#E8F4FF"
+                                             BorderThickness="0"
+                                             Padding="10" />
+                                </Border>
+
+                                <Border Grid.Row="1"
+                                        Margin="0,10,0,0"
+                                        Padding="10"
+                                        Background="#0C1725"
+                                        BorderBrush="#34516D"
+                                        BorderThickness="1"
+                                        CornerRadius="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="10" />
+                                            <ColumnDefinition Width="130" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBox x:Name="ServerCommandTextBox"
+                                                 Grid.Column="0"
+                                                 Height="34"
+                                                 Style="{StaticResource InputTextBoxStyle}"
+                                                 VerticalContentAlignment="Center"
+                                                 ToolTip="Введите команду сервера. Enter - отправить, стрелки вверх/вниз - история."
+                                                 KeyDown="ServerCommandTextBox_KeyDown" />
+
+                                        <Button x:Name="ServerSendCommandButton"
+                                                Grid.Column="2"
+                                                Height="34"
+                                                Content="Отправить"
+                                                Style="{StaticResource PrimaryButtonStyle}"
+                                                Click="ServerSendCommandButton_Click" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Файлы">
+                            <Grid Margin="10,4,2,2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Border Padding="10"
+                                        Background="#0C1725"
+                                        BorderBrush="#34516D"
+                                        BorderThickness="1"
+                                        CornerRadius="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="96" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock x:Name="ServerCurrentPathTextBlock"
+                                                   Margin="0,0,10,0"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="#BCD5F0"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   Text="Папка: -" />
+
+                                        <Button x:Name="ServerUpDirectoryButton"
+                                                Grid.Column="1"
+                                                Height="30"
+                                                Content="Вверх"
+                                                Style="{StaticResource SecondaryButtonStyle}"
+                                                Click="ServerUpDirectoryButton_Click" />
+                                    </Grid>
+                                </Border>
+
+                                <ListView x:Name="ServerFilesListView"
+                                          Grid.Row="1"
+                                          Margin="0,10,0,10"
+                                          Background="#08111C"
+                                          Foreground="White"
+                                          BorderBrush="#446789"
+                                          BorderThickness="1"
+                                          MouseDoubleClick="ServerFilesListView_MouseDoubleClick"
+                                          SelectionChanged="ServerFilesListView_SelectionChanged"
+                                          KeyDown="ServerFilesListView_KeyDown"
+                                          PreviewMouseLeftButtonDown="ServerFilesListView_PreviewMouseLeftButtonDown"
+                                          PreviewMouseMove="ServerFilesListView_PreviewMouseMove"
+                                          AllowDrop="True"
+                                          DragOver="ServerFilesListView_DragOver"
+                                          Drop="ServerFilesListView_Drop">
+                                    <ListView.Resources>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource GridHeaderStyle}" />
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                            <Setter Property="Foreground" Value="#ECF5FF" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="Background" Value="#DCEAF8" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="Background" Value="#BFD9F3" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListView.Resources>
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Имя" Width="360" DisplayMemberBinding="{Binding Name}" />
+                                            <GridViewColumn Header="Тип" Width="140" DisplayMemberBinding="{Binding Type}" />
+                                            <GridViewColumn Header="Размер" Width="150" DisplayMemberBinding="{Binding SizeText}" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+                                <UniformGrid x:Name="ServerFilesActionsPanel" Grid.Row="2" Columns="4" Margin="0,0,0,0">
+                                    <Button x:Name="ServerMoveFilesButton"
+                                            Height="34"
+                                            Margin="0,0,8,0"
+                                            Content="Добавить файлы"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            Click="ServerMoveFilesButton_Click" />
+
+                                    <Button x:Name="ServerDeleteEntryButton"
+                                            Height="34"
+                                            Margin="0,0,8,0"
+                                            Content="Удалить"
+                                            IsEnabled="False"
+                                            Style="{StaticResource DangerButtonStyle}"
+                                            Click="ServerDeleteEntryButton_Click" />
+
+                                    <Button x:Name="ServerOpenEntryButton"
+                                            Height="34"
+                                            Margin="0,0,8,0"
+                                            Content="Открыть"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            IsEnabled="False"
+                                            Click="ServerOpenEntryButton_Click" />
+
+                                    <Button x:Name="ServerRefreshFilesButton"
+                                            Height="34"
+                                            Content="Обновить"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            Click="ServerRefreshFilesButton_Click" />
+                                </UniformGrid>
+
+                                <Border x:Name="ServerFileEditorPanel"
+                                        Grid.Row="1"
+                                        Margin="0,10,0,10"
+                                        Padding="10"
+                                        Background="#0C1725"
+                                        BorderBrush="#34516D"
+                                        BorderThickness="1"
+                                        CornerRadius="10"
+                                        Visibility="Collapsed">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="110" />
+                                                <ColumnDefinition Width="8" />
+                                                <ColumnDefinition Width="96" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <TextBlock x:Name="ServerFileEditorPathTextBlock"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="#B7D9FF"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       Text="Файл: -" />
+
+                                            <Button x:Name="ServerFileSaveButton"
+                                                    Grid.Column="1"
+                                                    Height="30"
+                                                    Content="Сохранить"
+                                                    Style="{StaticResource SuccessButtonStyle}"
+                                                    Click="ServerFileSaveButton_Click" />
+
+                                            <Button x:Name="ServerFileCloseButton"
+                                                    Grid.Column="3"
+                                                    Height="30"
+                                                    Content="Закрыть"
+                                                    Style="{StaticResource SecondaryButtonStyle}"
+                                                    Click="ServerFileCloseButton_Click" />
+                                        </Grid>
+
+                                        <TextBox x:Name="ServerFileEditorTextBox"
+                                                 Grid.Row="1"
+                                                 Margin="0,10,0,0"
+                                                 AcceptsReturn="True"
+                                                 VerticalScrollBarVisibility="Auto"
+                                                 HorizontalScrollBarVisibility="Auto"
+                                                 TextWrapping="NoWrap"
+                                                 FontFamily="Consolas"
+                                                 FontSize="12"
+                                                 Background="#08111C"
+                                                 Foreground="#E8F4FF"
+                                                 BorderBrush="#446789"
+                                                 BorderThickness="1"
+                                                 Padding="10"
+                                                 TextChanged="ServerFileEditorTextBox_TextChanged" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Header="Настройки">
+                            <ScrollViewer Margin="10,4,2,2"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Margin="0,8,10,0"
+                                               Foreground="#EAF4FF"
+                                               FontSize="13"
+                                               Text="Название сервера" />
+                                    <TextBox x:Name="ServerSettingsNameTextBox"
+                                             Grid.Column="1"
+                                             Height="34"
+                                             Margin="0,4,0,0"
+                                             VerticalContentAlignment="Center"
+                                             Style="{StaticResource InputTextBoxStyle}" />
+
+                                    <TextBlock Grid.Row="1"
+                                               Margin="0,16,10,0"
+                                               Foreground="#EAF4FF"
+                                               FontSize="13"
+                                               Text="Ядро / Версия / ОЗУ (ГБ)" />
+                                    <StackPanel Grid.Row="1"
+                                                Grid.Column="1"
+                                                Orientation="Horizontal"
+                                                Margin="0,12,0,0">
+                                        <Border Background="#0D1E30"
+                                                BorderBrush="#446789"
+                                                BorderThickness="1"
+                                                CornerRadius="8"
+                                                Padding="10,6">
+                                            <TextBlock x:Name="ServerSettingsCoreTextBlock"
+                                                       Foreground="#E4F1FF"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <TextBox x:Name="ServerSettingsVersionTextBox"
+                                                 Width="220"
+                                                 Height="34"
+                                                 Margin="12,0,0,0"
+                                                 VerticalContentAlignment="Center"
+                                                 Style="{StaticResource InputTextBoxStyle}" />
+                                        <TextBox x:Name="ServerSettingsRamGbTextBox"
+                                                 Width="100"
+                                                 Height="34"
+                                                 Margin="12,0,0,0"
+                                                 HorizontalContentAlignment="Center"
+                                                 VerticalContentAlignment="Center"
+                                                 Style="{StaticResource InputTextBoxStyle}" />
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="2"
+                                               Margin="0,16,10,0"
+                                               Foreground="#EAF4FF"
+                                               FontSize="13"
+                                               Text="Дополнительные аргументы Java" />
+                                    <TextBox x:Name="ServerSettingsArgsTextBox"
+                                             Grid.Row="2"
+                                             Grid.Column="1"
+                                             Margin="0,12,0,0"
+                                             MinHeight="130"
+                                             AcceptsReturn="True"
+                                             VerticalScrollBarVisibility="Auto"
+                                             TextWrapping="Wrap"
+                                             Style="{StaticResource InputTextBoxStyle}" />
+
+                                    <Grid Grid.Row="3"
+                                          Grid.ColumnSpan="2"
+                                          Margin="0,16,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="180" />
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button x:Name="ServerSaveSettingsButton"
+                                                Height="34"
+                                                Content="Сохранить настройки"
+                                                Style="{StaticResource SuccessButtonStyle}"
+                                                Click="ServerSaveSettingsButton_Click" />
+
+                                        <TextBlock x:Name="ServerSettingsStatusTextBlock"
+                                                   Grid.Column="2"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="#B7D9FF"
+                                                   TextWrapping="Wrap" />
+                                    </Grid>
+                                </Grid>
+                            </ScrollViewer>
+                        </TabItem>
+                    </TabControl>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+

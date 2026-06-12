@@ -1,0 +1,60 @@
+<Window x:Class="AsetLauncher.ConsoleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Консоль лаунчера"
+        Height="520"
+        Width="860"
+        MinHeight="380"
+        MinWidth="620"
+        WindowStartupLocation="CenterOwner">
+    <Grid Background="#FF0E1520">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="10,10,10,8">
+            <Button DockPanel.Dock="Right"
+                    Width="96"
+                    Height="28"
+                    Content="Очистить"
+                    Foreground="White"
+                    Background="#FF3E536D"
+                    BorderBrush="#FF6E8CAD"
+                    BorderThickness="1"
+                    Cursor="Hand"
+                    Click="ClearButton_Click" />
+
+            <TextBlock Text="Логи AsetLauncher"
+                       Foreground="#FFE9F1FD"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center" />
+        </DockPanel>
+
+        <Border Grid.Row="1"
+                Margin="10,0,10,10"
+                Background="#FF111A27"
+                BorderBrush="#FF2F435A"
+                BorderThickness="1"
+                CornerRadius="8">
+            <TextBox x:Name="LogTextBox"
+                     Margin="0"
+                     Padding="10"
+                     Background="#FF111A27"
+                     Foreground="#FFDDEBFF"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     TextWrapping="NoWrap"
+                     VerticalScrollBarVisibility="Auto"
+                     HorizontalScrollBarVisibility="Auto"
+                     FontFamily="Consolas"
+                     FontSize="12"
+                     AcceptsReturn="True"
+                     AcceptsTab="True" />
+        </Border>
+    </Grid>
+</Window>
